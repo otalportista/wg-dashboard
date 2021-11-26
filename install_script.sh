@@ -33,14 +33,13 @@ if [[ "$(lsb_release -is)" == "Raspbian" ]]; then
 	# go back to home folder
 	cd ~
 elif [[ "$(lsb_release -is)" == "Ubuntu" ]]; then
+	# needed for new kernel
+	apt-get update -y
+	apt-get upgrade -y
 	# needed for add-apt-repository
 	apt-get install -y software-properties-common
-	# add wireguard repository to apt
-	add-apt-repository -y ppa:wireguard/wireguard
 	# install wireguard
-	apt-get install -y wireguard
-	# install linux kernel headers
-	apt-get install -y linux-headers-$(uname -r)
+	apt-get install -y wireguard curl
 elif [[ "$(lsb_release -is)" == "Debian" ]]; then
 	if [[ "$(lsb_release -rs)" -ge "10" ]]; then
 		# add unstable list
